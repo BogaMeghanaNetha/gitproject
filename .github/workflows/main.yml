@@ -1,0 +1,23 @@
+name: Master Branch Pipeline
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  validate-html:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Set Up HTML Proofer
+      run: |
+        sudo apt-get update
+        sudo apt-get install ruby-full -y
+        gem install html-proofer
+
+    - name: Validate HTML File
+      run: htmlproofer ./index.html
